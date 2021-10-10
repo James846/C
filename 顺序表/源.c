@@ -27,17 +27,17 @@ List Add(List* l) {//插入数据
     return *l;//返回结果值
 }
 
-List Del(List* l) {
+List Del(List* l) {//删除指定的元素值
     printf("请输入想要删除的元素值：");
     int del = 0;
     int n = l->length;
     scanf_s("%d", &del);
     for(int i=0;i<n;i++){
-        if (del == l->data[i]) {
+        if (del == l->data[i]) {//找到指定的元素值
             int* p = &l->data[i+1];
             int* q = &l->data[n];
             for (p; p <= q; p++) {
-                *(p - 1) = *p;
+                *(p - 1) = *p;//指针后移
             }
             l->length--;
         }
@@ -45,41 +45,52 @@ List Del(List* l) {
     return *l;
 }
 
-void Combine(List* l) {
-
+List Combine(List* l) {//合并表
+    List s,result;
+    Initialize(&s);
+    Initialize(&result);
+    char c = 0;
+    int i,p;
+    printf("请输入想要插入表的数据：");
+    while (c != '\n') {//使用回车来停止输入
+        int n = 0;
+        scanf_s("%d", &n);
+        (&s)->data[(&s)->length] = n;
+        (&s)->length = (&s)->length + 1;
+        c = getchar();
+    }
+    (&result)->length = l->length +(&s)->length;//新的表长
+    for (i = 0; i < l->length; i++) {
+        (&result)->data[i] = l->data[i];
+    }
+    for (p = 0,i; p < (&s)->length; p++,i++) {
+        (&result)->data[i] = (&s)->data[p];
+    }
+    return result;//返回结果值
 }
 
 List SpecialDel(List* l) {
-    printf("请输入想要删除的起点位置：");
-    int start = 0;
-    scanf_s("%d", &start);
-    printf("请输入想要删除的终点位置：");
-    int end = 0;
-    scanf_s("%d", &end);
-    if (start >= end || l->length == 0) {
+    printf("请输入想要删除的较小值：");
+    int min = 0;
+    scanf_s("%d", &min);
+    printf("请输入想要删除的较大值：");
+    int maxium = 0;
+    int i,j;
+    scanf_s("%d", &maxium);
+    if (min >= maxium || l->length == 0) {//输入的较小值大于等于较大值或者为空表
         printf("非法删除");
     }
-    int* first = &l->data[0];
-    int* last = &l->data[l->length-1];
-    int num = end - start + 1;
-    l->length = l->length - num; 
-    int calculate = 0;
-    int* s = &l->data[start - 2];
-    int* e = &l->data[end];
-    List *result=NULL;
-         for (int n = 1; n < start; n++) { 
-             for (first; first <= s; first++) {
-              result->data[n-1] = *first; 
-              calculate=calculate+1;
-            }
+    for ( i = 0; i < l->length && l->data[i] < min; i++);//找到第一个大于等于min的元素
+    if (i >= l->length) {//遍历完顺序表发现没有符合要求的删除
+        printf("没有删除值");
+        return *l;
     }
-    
-        for (calculate; calculate <= l->length; calculate++) {
-            for (e; e <= last; e++) {
-                result->data[calculate] = *e;
-        }
+    for (j = i; j < l->length && l->data[j] <= maxium; j++);//找到第一个大于maxium的元素
+    for (; j < l->length; i++, j++) {
+        l->data[i] = l->data[j];
     }
-    return *result;
+    l->length = i;
+    return *l;
 }
 
 void Traverse_List(List*l)//遍历节点（冒泡排序）
@@ -126,7 +137,7 @@ int main() {
         case 2: result = Del(&l);//删除定值e 
             CMD_Select(); scanf_s("%d", &cmd);
             break;
-        case 3:;//合并表
+        case 3:result=Combine(&l);//合并表
             CMD_Select(); scanf_s("%d", &cmd);
             break;
         case 4:result=SpecialDel(&l);//删除给定值之间的所有元素 
