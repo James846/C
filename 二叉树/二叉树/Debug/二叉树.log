@@ -1,0 +1,8 @@
+﻿  源.c
+D:\C\二叉树\二叉树\源.c(15,25): warning C4133: “函数”: 从“BTree *”到“BTree”的类型不兼容
+D:\C\二叉树\二叉树\源.c(15,52): warning C4133: “函数”: 从“BTree *”到“BTree”的类型不兼容
+D:\C\二叉树\二叉树\源.c(26,29): warning C4133: “=”: 从“BTNode *”到“BTree *”的类型不兼容
+D:\C\二叉树\二叉树\源.c(27,29): warning C4133: “=”: 从“BTNode *”到“BTree *”的类型不兼容
+D:\C\二叉树\二叉树\源.c(45,17): warning C4133: “=”: 从“BTree *”到“BTNode *”的类型不兼容
+D:\C\二叉树\二叉树\源.c(52,18): warning C4133: “=”: 从“BTree *”到“BTNode *”的类型不兼容
+  二叉树.vcxproj -> D:\C\二叉树\Debug\二叉树.exe
